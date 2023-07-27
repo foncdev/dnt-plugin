@@ -1,0 +1,96 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.jayuroun.plugin.dnt</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>DNT</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="foncdev@gmail.com" url="https://jayuroun.com">Jayuroun-dev</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description>
+        <![CDATA[
+            <h1>DNT</h1>
+            <br/>
+            The ability to recommend variable names<br>
+            <p><a href="https://jayuroun.com">Source Code</a></p>
+            Features:
+            <ul>
+                <li>Domain Name Recommendation</li>
+                <ul>
+                    <li>Recommendation by project</li>
+                    <li>camel case</li>
+                    <li>snake case</li>
+                </ul>
+                <li>Variable conversion</li>
+                <ul>
+                    <li>camel case to snake case</li>
+                    <li>snake case to camel case</li>
+                </ul>
+                <li>Search Domain Name</li>
+                <li>Domain Name Registration</li>
+
+            </ul>
+
+        ]]>
+    </description>
+    <change-notes>
+        <![CDATA[
+      <ul>
+        <li><b>1.0.0</b> Release 2023.6</li>
+      </ul>
+    ]]>
+    </change-notes>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <projectConfigurable groupId="tools" displayName="DNT" id="com.jayuroun.plugin.dnt.form.preferences.DntConfigurable" instance="com.jayuroun.plugin.dnt.form.preferences.DntConfigurable" />
+        <projectService serviceInterface="com.jayuroun.plugin.dnt.form.preferences.DntConfig" serviceImplementation="com.jayuroun.plugin.dnt.form.preferences.DntConfig"/>
+    </extensions>
+
+    <actions>
+        <action id="com.jayuroun.plugin.dnt.action.Replacer" class="com.jayuroun.plugin.dnt.action.Replacer" text="Replacer" description="suggest and replace current text">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl r"/>
+            <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl r"/>
+            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl r"/>
+        </action>
+
+        <action id="com.jayuroun.plugin.dnt.action.Translator" class="com.jayuroun.plugin.dnt.action.Translator" text="Translator" description="translator">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl 9"/>
+            <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl 9"/>
+            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl 9"/>
+        </action>
+
+        <action id="com.jayuroun.plugin.dnt.action.DialogModifyDomainAction" class="com.jayuroun.plugin.dnt.action.DialogModifyDomainAction" text="action.DialogModifyDomainAction" description="show modifyDomain Dialog">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl 0"/>
+            <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl 0"/>
+            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl 0"/>
+        </action>
+
+        <action id="com.jayuroun.plugin.dnt.action.CamelSnakeReplacer" class="com.jayuroun.plugin.dnt.action.CamelSnakeReplacer" text="SnakeReplacer" description="snake transformation">
+            <keyboard-shortcut keymap="$default" first-keystroke="meta ctrl k"/>
+            <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta ctrl k"/>
+            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="meta ctrl k"/>
+        </action>
+
+    </actions>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="com.jayuroun.plugin.dnt.component.ProjectOpenNotifier"/>
+        <applicationService serviceInterface="com.jayuroun.plugin.dnt.service.LanguageChecker" serviceImplementation="com.jayuroun.plugin.dnt.service.impl.LanguageCheckerImpl"/>
+        <applicationService serviceInterface="com.jayuroun.plugin.dnt.service.Proposer" serviceImplementation="com.jayuroun.plugin.dnt.service.impl.ProposerImpl"/>
+    </extensions>
+
+
+</idea-plugin>
