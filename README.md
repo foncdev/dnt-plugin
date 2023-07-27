@@ -2,7 +2,7 @@
 
 
 <p align="center"><b>Translation plugin for IntelliJ based IDEs/Android Studio.</b></p>
-<p align="center"><img src="" alt="screenshots"></p>
+<p align="center"><img src="./screen/domain_transition.gif" alt="screenshots"></p>
 
 <br/><br/><br/>
 
